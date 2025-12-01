@@ -6,6 +6,7 @@ public class CustomStringBuilder {
   private final StringBuilder builder = new StringBuilder();
   private final Stack<Snapshot> history = new Stack<>();
 
+/*
   public static void main(String[] args) {
 
     CustomStringBuilder sb = new CustomStringBuilder();
@@ -23,6 +24,7 @@ public class CustomStringBuilder {
     sb.undo();
     System.out.println(sb); // Hello
   }
+*/
 
   /**
    * Сохраняет текущее состояние перед изменениями
