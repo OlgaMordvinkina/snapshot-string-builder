@@ -1,4 +1,4 @@
-package ru.itk.collections;
+package ru.itk.collections.filter;
 
 import java.util.Arrays;
 import java.util.Objects;
