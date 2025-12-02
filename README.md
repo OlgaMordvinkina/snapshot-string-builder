@@ -117,3 +117,104 @@ public class ConcurrentBankExample {
     }
 }
 ```
+
+## 7 Stream API - генерация чисел
+Предположим, у нас есть список заказов, и каждый заказ представляет собой продукт и его стоимость. Задача состоит в использовании Stream API и коллекторов для решения следующих задач:
+
+Создайте список заказов с разными продуктами и их стоимостями.
+Группируйте заказы по продуктам.
+Для каждого продукта найдите общую стоимость всех заказов.
+Отсортируйте продукты по убыванию общей стоимости.
+Выберите три самых дорогих продукта.
+Выведите результат: список трех самых дорогих продуктов и их общая стоимость.
+Исходный код
+
+```
+class Order {
+    private String product;
+    private double cost;
+
+    public Order(String product, double cost) {
+        this.product = product;
+        this.cost = cost;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+}
+
+public class StreamCollectorsExample {
+    public static void main(String[] args) {
+        List<Order> orders = List.of(
+                new Order("Laptop", 1200.0),
+                new Order("Smartphone", 800.0),
+                new Order("Laptop", 1500.0),
+                new Order("Tablet", 500.0),
+                new Order("Smartphone", 900.0)
+        );
+}
+```
+
+## 8 Stream API - агрегация и объединение результатов
+1. Создайте коллекцию студентов, где каждый студент содержит информацию о предметах, 
+   которые он изучает, и его оценках по этим предметам.
+2. Используйте Parallel Stream для обработки данных и создания Map,
+   где ключ - предмет, а значение - средняя оценка по всем студентам.
+3. Выведите результат: общую Map с средними оценками по всем предметам.
+
+```
+class Student {
+    private String name;
+    private Map<String, Integer> grades;
+
+    public Student(String name, Map<String, Integer> grades) {
+        this.name = name;
+        this.grades = grades;
+    }
+
+    public Map<String, Integer> getGrades() {
+        return grades;
+    }
+}
+
+public class ParallelStreamCollectMapAdvancedExample {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+                new Student("Student1", Map.of("Math", 90, "Physics", 85)),
+                new Student("Student2", Map.of("Math", 95, "Physics", 88)),
+                new Student("Student3", Map.of("Math", 88, "Chemistry", 92)),
+                new Student("Student4", Map.of("Physics", 78, "Chemistry", 85))
+        );
+}
+```
+
+## 9 Stream API - ForkJoinPool: Рекурсивное вычисление факториала
+Рассмотрим задачу вычисления факториала числа с использованием ForkJoinPool. Факториал числа n обозначается как n! и вычисляется как произведение всех положительных целых чисел от 1 до n.
+
+1. Реализуйте класс FactorialTask, который расширяет RecursiveTask. Этот класс будет выполнять рекурсивное вычисление факториала числа.
+2. В конструкторе FactorialTask передайте число n, факториал которого нужно вычислить.
+3. В методе compute() разбейте задачу на подзадачи и используйте fork() для их асинхронного выполнения.
+4. Используйте join() для получения результатов подзадач и комбинирования их для получения общего результата.
+5. В основном методе создайте экземпляр FactorialTask с числом, для которого нужно вычислить факториал, и запустите его в ForkJoinPool.
+6. Выведите результат вычисления факториала.
+В итоге должно получиться так
+
+```
+public class ForkJoinPoolExample {
+    public static void main(String[] args) {
+        int n = 10; // Вычисление факториала для числа 10
+
+        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        FactorialTask factorialTask = new FactorialTask(n);
+
+        long result = forkJoinPool.invoke(factorialTask);
+
+        System.out.println("Факториал " + n + "! = " + result);
+    }
+}
+```
